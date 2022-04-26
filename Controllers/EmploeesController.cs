@@ -4,9 +4,8 @@ namespace Timesheets.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContractController : ControllerBase
+    public class EmploeesController : ControllerBase
     {
-
         [HttpGet("{id}")]
         public IActionResult GetByID([FromRoute] int id)
         {
