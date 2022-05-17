@@ -4,6 +4,22 @@ using Timesheets.Models;
 namespace Timesheets.DAL.Repositories
 {
 
+    public static class PagingExtensions
+    {
+        //used by LINQ to SQL
+        public static IQueryable<TSource> Page<TSource>(this IQueryable<TSource> source, int page, int pageSize)
+        {
+            return source.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        //used by LINQ
+        public static IEnumerable<TSource> Page<TSource>(this IEnumerable<TSource> source, int page, int pageSize)
+        {
+            return source.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+    }
+
     public interface IPersonsRepository : IRepository<Persons>
     {
 
@@ -132,7 +148,7 @@ new Persons { Id = 50, FirstName = "Ramona", LastName = "Gilliam", Email =
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            data.RemoveAt(id);
         }
 
         public IList<Persons> GetAll()
@@ -142,12 +158,7 @@ new Persons { Id = 50, FirstName = "Ramona", LastName = "Gilliam", Email =
 
         public Persons GetById(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IList<Persons> GetFromTo(int fromId, int toId)
-        {
-            throw new NotImplementedException();
+            return data[id];
         }
 
         public void Update(Persons item)

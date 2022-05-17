@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Timesheets.DAL.Repositories;
+using Timesheets.Models;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Timesheets.Controllers
 {
@@ -23,13 +27,17 @@ namespace Timesheets.Controllers
         [HttpGet("persons/searchTerm={term}")]
         public IActionResult GetByName([FromRoute] string name)
         {
-            return Ok();
+            var rez = _repository.GetAll().ToList();
+            var r = rez.Find(x => x.FirstName == name);
+            return Ok(r);
         }
 
         [HttpGet("persons/skip/{fromid}take/{toid}")]
         public IActionResult GetByName([FromRoute] int fromid, [FromRoute] int toid)
         {
-            return Ok();
+            var rez = _repository.GetAll().ToList();
+            var r = rez.FindAll(x => x.Id >= fromid && x.Id <= toid);
+            return Ok(r);
         }
 
         [HttpPost]
@@ -41,6 +49,7 @@ namespace Timesheets.Controllers
         [HttpDelete("persons/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
+            _repository.Delete(id);
             return Ok();
         }
     }
