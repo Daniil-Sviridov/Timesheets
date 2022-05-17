@@ -143,7 +143,7 @@ new Persons { Id = 50, FirstName = "Ramona", LastName = "Gilliam", Email =
 
         public void Create(Persons item)
         {
-            data.Add(new Persons { Age = item.Age, Company = item.Company, Email = item.Email, FirstName = item.FirstName, LastName = item.LastName, Id = data.Count+1});
+            data.Add(new Persons { Age = item.Age, Company = item.Company, Email = item.Email, FirstName = item.FirstName, LastName = item.LastName, Id = data.Count + 1 });
         }
 
         public void Delete(int id)
